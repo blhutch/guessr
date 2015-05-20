@@ -53,7 +53,6 @@ module Guessr
       else
         puts "You win!"
         self.update(finished: true)
-        binding.pry
         n_score = 0
         if self.guess_count <= 10
            n_score = 100 - (10 * self.guess_count)
@@ -65,9 +64,7 @@ module Guessr
   end
 end
 
-# binding.pry
-
 menu = Guessr::Menu.new
 menu.run
 
-binding.pry
+

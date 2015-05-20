@@ -8,7 +8,7 @@ module Guessr
     def choose_player
       puts "Welcome Player 1!"
       puts "Please enter your name: "
-      result = gets.chomp.downcase
+      result = gets.chomp.upcase
       until result =~ /^\w+$/
         puts "Please enter a name you doofus: "
         result = gets.chomp
@@ -26,7 +26,11 @@ module Guessr
       # @player = Player.find(result.to_i)
     end
 
-    def score_board
+    def scoreboard
+      Player.order(score: :desc).each do |player|
+        puts "#{player.name} -> #{player.score}"
+      end
+    end
 
     def choose_game
       puts "Start a new game (1) or resume an existing game (2)?"
@@ -74,10 +78,14 @@ module Guessr
 
     def welcome
       puts "\n\n"
-      puts "Welcome to the guessing game!"
-      puts "At any time, you may exit the game by pressing (q) to Quit."
-      puts "Would you like to see the scoreboard?"
-      puts "\n\n"
+      puts "Welcome to the guessing game! \n"
+      puts "At any time, you may exit the game by pressing (q) to Quit. \n"
+      puts "Would you like to see the scoreboard? (y or n)"
+      answer = gets.chomp
+      if answer == 'y'
+       scoreboard
+       puts "\n\n"
+      end
     end
   end
 end
