@@ -20,6 +20,8 @@ require 'guessr/menu'
 module Guessr
   class Player < ActiveRecord::Base
     has_many :games
+    score = 0
+
   end
 
   class Game < ActiveRecord::Base
@@ -51,6 +53,13 @@ module Guessr
       else
         puts "You win!"
         self.update(finished: true)
+        binding.pry
+        n_score = 0
+        if self.guess_count <= 10
+           n_score = 100 - (10 * self.guess_count)
+        end
+        current_score = self.player.score
+        self.player.update(score: current_score + n_score )
       end
     end
   end
@@ -60,3 +69,5 @@ end
 
 menu = Guessr::Menu.new
 menu.run
+
+binding.pry
